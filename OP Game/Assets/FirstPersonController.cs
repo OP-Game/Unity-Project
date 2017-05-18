@@ -49,7 +49,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float horizontal = 0f;
         private float vertical = 0f;
         private Vector3 jumpDirection;
-    
+        public bool wtfIsGoingOn;
 
         // Use this for initialization
         private void Start()
@@ -71,12 +71,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         public void Update()
         {
+
+            wtfIsGoingOn = m_CharacterController.isGrounded;
+
             RotateView();
             // the jump state needs to read here to make sure it is not missed
-            if (!m_Jump)
-            {
-                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-            }
+           
            
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
             {
@@ -85,11 +85,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_MoveDir.y = 0f;
                 m_Jumping = false;
             }
+             
             if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
             {
                 m_MoveDir.y = 0f;
             }
-
+            if (m_CharacterController.isGrounded)
+            {
+                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+            }
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
 
             if (m_Jump)
