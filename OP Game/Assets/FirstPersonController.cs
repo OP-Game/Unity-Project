@@ -48,6 +48,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private float horizontal = 0f;
         private float vertical = 0f;
+        private Vector3 jumpDirection;
+    
 
         // Use this for initialization
         private void Start()
@@ -75,7 +77,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
-
+           
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
             {
                 StartCoroutine(m_JumpBob.DoBobCycle());
@@ -90,6 +92,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
 
+            if (m_Jump)
+            {
+                jumpDirection = m_MoveDir;
+            }
+            
             
         }
 
@@ -106,8 +113,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             float speed;
             GetInput(out speed);
+
+
             // always move along the camera forward as it is the direction that it being aimed at
-            Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
+
+            Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
+            
+           
 
             // get a normal for the surface that is being touched to move along it
             RaycastHit hitInfo;
@@ -125,6 +137,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
                 if (m_Jump)
                 {
+                    
                     m_MoveDir.y = m_JumpSpeed;
                     PlayJumpSound();
                     m_Jump = false;
@@ -133,6 +146,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             else
             {
+                m_MoveDir.x = jumpDirection.x;
+                m_MoveDir.z = jumpDirection.z;
                 m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
             }
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
