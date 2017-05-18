@@ -45,7 +45,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public GameObject exploder;
         public Camera mainCam;
         public Exploder.ExploderObject exploderObject;
-        
+
+        private float horizontal = 0f;
+        private float vertical = 0f;
+
         // Use this for initialization
         private void Start()
         {
@@ -210,10 +213,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void GetInput(out float speed)
         {
-            // Read input
-            float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
-            float vertical = CrossPlatformInputManager.GetAxis("Vertical");
 
+          
+
+            // Read input
+            if (m_CharacterController.isGrounded)
+            {
+                horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
+                vertical = CrossPlatformInputManager.GetAxis("Vertical");
+            }
+            
             bool waswalking = m_IsWalking;
 
 #if !MOBILE_INPUT
