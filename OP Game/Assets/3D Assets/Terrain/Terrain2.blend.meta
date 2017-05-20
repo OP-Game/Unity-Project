@@ -1,22 +1,16 @@
 fileFormatVersion: 2
-guid: 9478a39488e2c0b499d8d2bc818f9c09
-timeCreated: 1494890463
+guid: 712a754162cef1642ab2aa425a6bd207
+timeCreated: 1495148927
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Cube
-    100004: Cylinder
     400000: //RootNode
-    400002: Cube
-    400004: Cylinder
-    2300000: Cube
-    2300002: Cylinder
-    3300000: Cube
-    3300002: Cylinder
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: Cube
-    4300002: Cylinder
+    6400000: //RootNode
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -45,9 +39,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.3
+    globalScale: 25
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

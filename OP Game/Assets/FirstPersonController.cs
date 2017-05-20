@@ -45,7 +45,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public GameObject exploder;
         public Camera mainCam;
         public Exploder.ExploderObject exploderObject;
-        
+
+        private float horizontal = 0f;
+        private float vertical = 0f;
+        private Vector3 jumpDirection;
+        public bool wtfIsGoingOn;
+
         // Use this for initialization
         private void Start()
         {
@@ -66,9 +71,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         public void Update()
         {
+
+            wtfIsGoingOn = m_CharacterController.isGrounded;
+
             RotateView();
             // the jump state needs to read here to make sure it is not missed
-            if (!m_Jump)
+            if (m_CharacterController.isGrounded && !m_Jump)
             {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
@@ -80,13 +88,21 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_MoveDir.y = 0f;
                 m_Jumping = false;
             }
+             
             if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
             {
                 m_MoveDir.y = 0f;
             }
 
+            if (m_Jump)
+            {
+                jumpDirection = m_MoveDir;
+            }
+
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
 
+           
+            
             
         }
 
@@ -103,8 +119,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             float speed;
             GetInput(out speed);
+
+
             // always move along the camera forward as it is the direction that it being aimed at
-            Vector3 desiredMove = transform.forward*m_Input.y + transform.right*m_Input.x;
+
+            Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
+            
+           
 
             // get a normal for the surface that is being touched to move along it
             RaycastHit hitInfo;
@@ -121,7 +142,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 m_MoveDir.y = -m_StickToGroundForce;
 
                 if (m_Jump)
-                {
+                { 
                     m_MoveDir.y = m_JumpSpeed;
                     PlayJumpSound();
                     m_Jump = false;
@@ -130,6 +151,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             else
             {
+                m_MoveDir.x = jumpDirection.x;
+                m_MoveDir.z = jumpDirection.z;
                 m_MoveDir += Physics.gravity*m_GravityMultiplier*Time.fixedDeltaTime;
             }
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir*Time.fixedDeltaTime);
@@ -210,10 +233,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void GetInput(out float speed)
         {
-            // Read input
-            float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
-            float vertical = CrossPlatformInputManager.GetAxis("Vertical");
 
+          
+
+            // Read input
+            if (m_CharacterController.isGrounded)
+            {
+                horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
+                vertical = CrossPlatformInputManager.GetAxis("Vertical");
+            }
+            
             bool waswalking = m_IsWalking;
 
 #if !MOBILE_INPUT
