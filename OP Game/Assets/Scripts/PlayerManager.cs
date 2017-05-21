@@ -6,12 +6,13 @@ public class PlayerManager : MonoBehaviour
 {
 
     public Camera mainCam;
-    public GameObject exploder;
-    public Exploder.ExploderObject exploderObject;
+    private GameObject exploder;
+    private Exploder.ExploderObject exploderObject;
     private LineRenderer shotLine;
-    public Material barkMat;
+    private Material barkMat;
 
-   
+    private GameObject bulletPrefab;
+
     private float waitTime = .2f;
     
 
@@ -21,6 +22,8 @@ public class PlayerManager : MonoBehaviour
         shotLine = GetComponentInChildren<LineRenderer>();
         exploder = GameObject.FindGameObjectWithTag("ExploderMaster");
         exploderObject = exploder.GetComponent<Exploder.ExploderObject>();
+
+        bulletPrefab = GameObject.Find("Bullet1");
         
     }
 
@@ -33,14 +36,18 @@ public class PlayerManager : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
+            Fire();
+            /*
             RaycastHit hit;
             Ray ray = new Ray(mainCam.transform.position, mainCam.transform.forward);
             if (Physics.Raycast(ray, out hit))
             {
+
+                
                 shotLine.gameObject.active = true;
                 shotLine.SetPosition(0, shotLine.transform.position);                                   //sets the start and end positions of the line renderer
                 shotLine.SetPosition(1, hit.point);
-
+                                
                 exploder.transform.position = hit.point;
 
                 if (hit.transform.tag == "Exploder")
@@ -56,18 +63,29 @@ public class PlayerManager : MonoBehaviour
                     exploderObject.ForceVector = ray.direction;
                     exploderObject.ExplodeObject(hit.transform.gameObject);
                 }
-
+                
                 Invoke("waitToDestroy", waitTime);
             }
-               
+           */
 
         }
-        
-        
+
+
     }
 
     void waitToDestroy()
     {
         shotLine.gameObject.active = false;
+    }
+
+    void Fire()
+    {
+        //spawn Bullet from prefab
+        var bullet = (GameObject)Instantiate(bulletPrefab, shotLine.transform.position, shotLine.transform.rotation);
+
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 100;
+
+        Destroy(bullet, 5f);
+       
     }
 }
