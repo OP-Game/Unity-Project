@@ -10,6 +10,9 @@ public class PlayerManager : MonoBehaviour {
     public LineRenderer shotLine;
     public Material barkMat;
 
+    private Color startColor, endColor;
+    private float alphaValue = 255;
+
 	// Use this for initialization
 	void Start () {
         
@@ -25,7 +28,7 @@ public class PlayerManager : MonoBehaviour {
         {
             RaycastHit hit;
             Ray ray = new Ray(mainCam.transform.position, mainCam.transform.forward);
-            if (Physics.Raycast(ray, out hit, 50f))                                                     
+            if (Physics.Raycast(ray, out hit))                                                     
             {
                 shotLine.SetPosition(0, shotLine.transform.position);                                   //sets the start and end positions of the line renderer
                 shotLine.SetPosition(1, hit.point);
@@ -47,8 +50,15 @@ public class PlayerManager : MonoBehaviour {
                 }
             }
         }
+        alphaValue -= 1;
+        startColor.a = alphaValue;
+        endColor = new Color(1, 0, 0, alphaValue);
+        shotLine.startColor = startColor;
 
-
+        if(startColor.a == 0)
+        {
+            startColor.a = 255;
+        }
 
     }
 
