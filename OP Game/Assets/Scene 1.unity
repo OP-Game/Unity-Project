@@ -361,9 +361,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 5
-  exploder: {fileID: 0}
-  exploderObject: {fileID: 0}
-  barkMat: {fileID: 0}
+  exploder: {fileID: 288374850}
+  exploderObject: {fileID: 288374852}
+  barkMat: {fileID: 2100000, guid: 6fb9509bf69b17f41be8965d44b1531f, type: 2}
 --- !u!114 &437726860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,22 +378,22 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
+    i0: 26
+    i1: 130
+    i2: 160
+    i3: 119
+    i4: 156
+    i5: 133
+    i6: 86
+    i7: 196
+    i8: 58
+    i9: 147
+    i10: 135
+    i11: 41
+    i12: 122
+    i13: 151
+    i14: 236
+    i15: 124
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!4 &464931236 stripped
@@ -1232,22 +1232,22 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 0
-    i1: 0
-    i2: 0
-    i3: 0
-    i4: 0
-    i5: 0
-    i6: 0
-    i7: 0
-    i8: 0
-    i9: 0
-    i10: 0
-    i11: 0
-    i12: 0
-    i13: 0
-    i14: 0
-    i15: 0
+    i0: 26
+    i1: 130
+    i2: 160
+    i3: 119
+    i4: 156
+    i5: 133
+    i6: 86
+    i7: 196
+    i8: 58
+    i9: 147
+    i10: 135
+    i11: 41
+    i12: 122
+    i13: 151
+    i14: 236
+    i15: 124
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!1001 &1460309934
