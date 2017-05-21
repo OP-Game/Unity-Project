@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : NetworkBehaviour
 {
 
     public Camera mainCam;
@@ -31,12 +32,17 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
 
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         //  On click, performs a raycast in the direction of the camera
         //  Checks for hits, on a hit with any object tagged "Exploder", triggers explosion in the direction of the raycast.
 
         if (Input.GetMouseButtonUp(0))
         {
-            Fire();
+            CmdFire();
             /*
             RaycastHit hit;
             Ray ray = new Ray(mainCam.transform.position, mainCam.transform.forward);
@@ -78,12 +84,15 @@ public class PlayerManager : MonoBehaviour
         shotLine.gameObject.active = false;
     }
 
-    void Fire()
+    [Command]
+    void CmdFire()
     {
         //spawn Bullet from prefab
         var bullet = (GameObject)Instantiate(bulletPrefab, shotLine.transform.position, shotLine.transform.rotation);
 
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 100;
+
+        NetworkServer.Spawn(bullet);
 
         Destroy(bullet, 5f);
        

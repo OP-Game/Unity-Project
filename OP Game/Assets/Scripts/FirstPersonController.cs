@@ -3,13 +3,14 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
+using UnityEngine.Networking;
 
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
     [RequireComponent(typeof (CharacterController))]
     [RequireComponent(typeof (AudioSource))]
-    public class FirstPersonController : MonoBehaviour
+    public class FirstPersonController : NetworkBehaviour
     {
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
@@ -71,7 +72,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         public void Update()
         {
-
+            if (!isLocalPlayer)
+            {
+                return;
+            }
             wtfIsGoingOn = m_CharacterController.isGrounded;
 
             RotateView();
