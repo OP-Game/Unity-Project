@@ -9,7 +9,7 @@ public class PlayerManager : NetworkBehaviour
     public Camera mainCam;
     private GameObject exploder;
     private Exploder.ExploderObject exploderObject;
-    private LineRenderer shotLine;
+    private GameObject shotStart;
     private Material barkMat;
 
     private GameObject bulletPrefab;
@@ -20,7 +20,7 @@ public class PlayerManager : NetworkBehaviour
     // Use this for initialization
     void Start()
     {
-        shotLine = GetComponentInChildren<LineRenderer>();
+        shotStart = transform.Find("FirstPersonCharacter/Blaster Pistol/shotStart").gameObject;
         exploder = GameObject.FindGameObjectWithTag("ExploderMaster");
         exploderObject = exploder.GetComponent<Exploder.ExploderObject>();
 
@@ -81,14 +81,14 @@ public class PlayerManager : NetworkBehaviour
 
     void waitToDestroy()
     {
-        shotLine.gameObject.active = false;
+        shotStart.gameObject.active = false;
     }
 
     [Command]
     void CmdFire()
     {
         //spawn Bullet from prefab
-        var bullet = (GameObject)Instantiate(bulletPrefab, shotLine.transform.position, shotLine.transform.rotation);
+        var bullet = (GameObject)Instantiate(bulletPrefab, shotStart.transform.position, shotStart.transform.rotation);
 
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 100;
 

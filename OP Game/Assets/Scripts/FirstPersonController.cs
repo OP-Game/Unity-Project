@@ -57,7 +57,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             
             m_CharacterController = GetComponent<CharacterController>();
-            m_Camera = Camera.main;
+            m_Camera = GetComponentInChildren<Camera>();
             m_OriginalCameraPosition = m_Camera.transform.localPosition;
             m_FovKick.Setup(m_Camera);
             m_HeadBob.Setup(m_Camera, m_StepInterval);
@@ -76,7 +76,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 return;
             }
-            wtfIsGoingOn = m_CharacterController.isGrounded;
+            
 
             RotateView();
             // the jump state needs to read here to make sure it is not missed
@@ -121,6 +121,12 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void FixedUpdate()
         {
+
+            if (!isLocalPlayer)
+            {
+                return;
+            }
+
             float speed;
             GetInput(out speed);
 
