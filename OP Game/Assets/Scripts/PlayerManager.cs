@@ -23,9 +23,8 @@ public class PlayerManager : NetworkBehaviour
         shotStart = transform.Find("FirstPersonCharacter/Blaster Pistol/shotStart").gameObject;
         exploder = GameObject.FindGameObjectWithTag("ExploderMaster");
         exploderObject = exploder.GetComponent<Exploder.ExploderObject>();
-
         bulletPrefab = GameObject.Find("Bullet1");
-        
+
     }
 
     // Update is called once per frame
@@ -43,37 +42,6 @@ public class PlayerManager : NetworkBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             CmdFire();
-            /*
-            RaycastHit hit;
-            Ray ray = new Ray(mainCam.transform.position, mainCam.transform.forward);
-            if (Physics.Raycast(ray, out hit))
-            {
-
-                
-                shotLine.gameObject.active = true;
-                shotLine.SetPosition(0, shotLine.transform.position);                                   //sets the start and end positions of the line renderer
-                shotLine.SetPosition(1, hit.point);
-                                
-                exploder.transform.position = hit.point;
-
-                if (hit.transform.tag == "Exploder")
-                {
-                    if (hit.transform.parent.tag == "TerrainObj")                                        //if the hit object's parent has the tag TerrainObj, sets the fragment material to Bark.
-                    {
-                        exploderObject.FragmentOptions.FragmentMaterial = barkMat;
-                    }
-                    else if (hit.transform.parent == null || hit.transform.parent.tag != "TerrainObj")   //else if there is no parent, or the parent isnt tagged TerrainObj, use default material
-                    {
-                        exploderObject.FragmentOptions.FragmentMaterial = null;
-                    }
-                    exploderObject.ForceVector = ray.direction;
-                    exploderObject.ExplodeObject(hit.transform.gameObject);
-                }
-                
-                Invoke("waitToDestroy", waitTime);
-            }
-           */
-
         }
 
 
