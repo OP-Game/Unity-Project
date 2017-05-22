@@ -3,14 +3,13 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
-using UnityEngine.Networking;
 
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
     [RequireComponent(typeof (CharacterController))]
     [RequireComponent(typeof (AudioSource))]
-    public class FirstPersonController : NetworkBehaviour
+    public class FirstPersonController : Photon.MonoBehaviour
     {
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
@@ -56,19 +55,20 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Start()
         {
             
-            m_CharacterController = GetComponent<CharacterController>();
-            m_Camera = GetComponentInChildren<Camera>();
-            m_OriginalCameraPosition = m_Camera.transform.localPosition;
-            m_FovKick.Setup(m_Camera);
-            m_HeadBob.Setup(m_Camera, m_StepInterval);
-            m_StepCycle = 0f;
-            m_NextStep = m_StepCycle/2f;
-            m_Jumping = false;
-            m_AudioSource = GetComponent<AudioSource>();
-			m_MouseLook.Init(transform , m_Camera.transform);
+                m_Camera = GetComponentInChildren<Camera>();
 
-            if (isLocalPlayer) return;
-            m_Camera.enabled = false;
+                m_CharacterController = GetComponent<CharacterController>();
+
+                m_OriginalCameraPosition = m_Camera.transform.localPosition;
+                m_FovKick.Setup(m_Camera);
+                m_HeadBob.Setup(m_Camera, m_StepInterval);
+                m_StepCycle = 0f;
+                m_NextStep = m_StepCycle / 2f;
+                m_Jumping = false;
+                m_AudioSource = GetComponent<AudioSource>();
+                m_MouseLook.Init(transform, m_Camera.transform);
+            
+           
             
 
         }
@@ -77,12 +77,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         public void Update()
         {
-            if (!isLocalPlayer)
-            {
-                return;
-            }
-            
-
             RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (m_CharacterController.isGrounded && !m_Jump)
@@ -127,10 +121,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void FixedUpdate()
         {
 
-            if (!isLocalPlayer)
-            {
-                return;
-            }
+            
 
             float speed;
             GetInput(out speed);

@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class TreeHealth : NetworkBehaviour {
+
+public class TreeHealth : MonoBehaviour {
 
     public const int startHealth = 5;
 
