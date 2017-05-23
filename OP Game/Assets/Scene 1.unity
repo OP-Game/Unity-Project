@@ -4580,6 +4580,10 @@ Prefab:
       propertyPath: field of view
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 2000000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
+      propertyPath: m_HDR
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
@@ -5162,6 +5166,18 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d83041cf64e7214587bdfcd756c5646, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1717761978 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100002, guid: 5e9e851c0e142814dac026a256ba2ac0, type: 2}
+  m_PrefabInternal: {fileID: 1079409931}
+--- !u!45 &1717761981
+Skybox:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1717761978}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 56becb807361af44b9faec9287c4d40e, type: 2}
 --- !u!1 &1736162170
 GameObject:
   m_ObjectHideFlags: 0
