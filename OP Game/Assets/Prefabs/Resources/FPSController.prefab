@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 114521789256482590}
   - component: {fileID: 114626656797460442}
   - component: {fileID: 114000158143465646}
+  - component: {fileID: 114843544401000586}
   m_Layer: 0
   m_Name: FPSController
   m_TagString: Untagged
@@ -615,13 +616,12 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 1
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 4438575609621384}
-  - {fileID: 114832158729736346}
+  - {fileID: 114843544401000586}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -756,7 +756,7 @@ MonoBehaviour:
     TeleportIfDistanceGreaterThan: 25
     InterpolateOption: 4
     InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 25
+    InterpolateLerpSpeed: 10
     InterpolateMoveTowardsAcceleration: 2
     InterpolateMoveTowardsDeceleration: 2
     InterpolateSpeedCurve:
@@ -816,6 +816,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 20239607435768702}
+--- !u!114 &114843544401000586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1474933554454146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f81c95a39fb16bd499466cde326caa65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myCamera: {fileID: 20239607435768702}
+  pManager: {fileID: 114832158729736346}
+  fpsController: {fileID: 114521789256482590}
 --- !u!124 &124996821675550820
 Behaviour:
   m_ObjectHideFlags: 1

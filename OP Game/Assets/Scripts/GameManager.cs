@@ -25,11 +25,11 @@ namespace Com.OP.MyGame
                 Debug.Log("OnPhotonPlayerConnected isMasterClient " + PhotonNetwork.isMasterClient); // called before OnPhotonPlayerDisconnected
 
 
-                LoadArena();
+               LoadArena();
             }
         }
 
-
+        
         public override void OnPhotonPlayerDisconnected(PhotonPlayer other)
         {
             Debug.Log("OnPhotonPlayerDisconnected() " + other.NickName); // seen when other disconnects
@@ -40,7 +40,7 @@ namespace Com.OP.MyGame
                 Debug.Log("OnPhotonPlayerConnected isMasterClient " + PhotonNetwork.isMasterClient); // called before OnPhotonPlayerDisconnected
 
 
-                LoadArena();
+                //LoadArena();
             }
         }
         /// <summary>
@@ -87,10 +87,6 @@ namespace Com.OP.MyGame
 
         void LoadArena()
         {
-            if (!PhotonNetwork.isMasterClient)
-            {
-                Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
-            }
             Debug.Log("PhotonNetwork : Loading Level : " + PhotonNetwork.room.PlayerCount);
             PhotonNetwork.LoadLevel("Arena1 1");
         }

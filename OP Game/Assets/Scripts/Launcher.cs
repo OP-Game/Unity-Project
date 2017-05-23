@@ -78,13 +78,8 @@ namespace Com.OP.MyGame
         {
             Debug.Log("DemoAnimator/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
             // #Critical: We only load if we are the first player, else we rely on  PhotonNetwork.automaticallySyncScene to sync our instance scene.
-            if (PhotonNetwork.room.PlayerCount == 1)
+            if (PhotonNetwork.room.PlayerCount > MaxPlayersPerRoom)
             {
-                Debug.Log("We load the 'Room for 1' ");
-
-
-                // #Critical
-                // Load the Room Level. 
                 PhotonNetwork.LoadLevel("Arena1 1");
             }
         }

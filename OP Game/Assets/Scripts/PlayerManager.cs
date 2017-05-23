@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using Photon;
 
-public class PlayerManager : Photon.MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
 
     public Camera mainCam;
@@ -23,11 +22,8 @@ public class PlayerManager : Photon.MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (photonView.isMine || !PhotonNetwork.connected)
-        {
-            shotStart = this.transform.Find("FirstPersonCharacter/Blaster Pistol/shotStart").gameObject;
-            
-        }
+
+        shotStart = this.transform.Find("FirstPersonCharacter/Blaster Pistol/shotStart").gameObject;
         exploder = GameObject.FindGameObjectWithTag("ExploderMaster");
         exploderObject = exploder.GetComponent<Exploder.ExploderObject>();
         bulletPrefab = GameObject.Find("Bullet1");
@@ -54,21 +50,7 @@ public class PlayerManager : Photon.MonoBehaviour
 
     }
 
-    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.isWriting)
-        {
-            //We own this player: send the others our data 
-            stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
-        }
-        else
-        {
-            //Network player, receive data 
-            this.correctPlayerPos = (Vector3)stream.ReceiveNext();
-            this.correctPlayerRot = (Quaternion)stream.ReceiveNext();
-        }
-    }
+   
 
     void waitToDestroy()
     {
@@ -78,7 +60,7 @@ public class PlayerManager : Photon.MonoBehaviour
     void Fire()
     {
         //spawn Bullet from prefab
-        var bullet = (GameObject)Instantiate(bulletPrefab, shotStart.transform.position, shotStart.transform.rotation);
+        var bullet = PhotonNetwork.Instantiate("Bullet1", shotStart.transform.position, shotStart.transform.rotation, 0);
 
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 100;
 
