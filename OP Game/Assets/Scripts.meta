@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 753bf5e13d3b8ca4dbf1a41857d03b3f
 folderAsset: yes
 timeCreated: 1495144885
+=======
+guid: 2371d9ff8e213474a9898e7f8e4c831c
+folderAsset: yes
+timeCreated: 1495323739
+>>>>>>> Photon-Networking
 licenseType: Free
 DefaultImporter:
   userData: 

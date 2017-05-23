@@ -7,6 +7,8 @@ TagManager:
   - Exploder
   - Explodable
   - TerrainObj
+  - ExploderMaster
+  - Terrain
   layers:
   - Default
   - TransparentFX
