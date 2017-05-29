@@ -63,9 +63,6 @@ public class PlayerManager : MonoBehaviour
         var bullet = PhotonNetwork.Instantiate("Bullet1", shotStart.transform.position, shotStart.transform.rotation, 0);
 
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 100;
-
-
-        Destroy(bullet, 5f);
        
     }
 }

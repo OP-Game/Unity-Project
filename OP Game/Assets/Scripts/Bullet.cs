@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    
+    public void Awake()
+    {
+        Destroy(this.gameObject, 5f);
+    }
 
     private TreeHealth treeHealth;
     void OnCollisionEnter(Collision collision)
