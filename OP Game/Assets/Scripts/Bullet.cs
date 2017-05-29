@@ -14,20 +14,28 @@ public class Bullet : MonoBehaviour {
     {
 
         var hit = collision.gameObject;
-        
+        var contactPoint = collision.contacts[0];
        
-        if(hit.tag == "Exploder")
+        if(hit.tag == "Exploder" && this.tag == "Bomb")
         {
             if(hit.transform.parent.tag == "TerrainObj")
             {
                 treeHealth = hit.GetComponent<TreeHealth>();
                 treeHealth.TakeDamage(3, transform.forward, transform.position);
             }
+            if (hit.tag != "Terrain")
+            {
+                Destroy(this.gameObject);
+            }
         }
 
-        if (hit.tag != "Terrain")
+        if(this.gameObject.tag == "Bullet")
         {
-            Destroy(gameObject);
+            if(hit.tag == "Player")
+            {
+                PhotonNetwork.Instantiate("PlayerHit", contactPoint.point, this.transform.rotation, 0);
+            }
+            Destroy(this.gameObject);
         }
     }
 }
