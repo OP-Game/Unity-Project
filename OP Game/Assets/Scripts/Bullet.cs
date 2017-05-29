@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    public void Awake()
+    public void Start()
     {
         Destroy(this.gameObject, 5f);
     }
@@ -29,13 +29,13 @@ public class Bullet : MonoBehaviour {
             }
         }
 
-        if(this.gameObject.tag == "Bullet")
+        if(gameObject.tag == "Bullet")
         {
             if(hit.tag == "Player")
             {
                 PhotonNetwork.Instantiate("PlayerHit", contactPoint.point, this.transform.rotation, 0);
             }
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }
