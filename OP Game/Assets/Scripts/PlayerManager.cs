@@ -11,11 +11,13 @@ public class PlayerManager : MonoBehaviour
     private Exploder.ExploderObject exploderObject;
     private GameObject shotStart;
     private GameObject bulletPrefab;
-
+    public string equippedWep;
 
     // Use this for initialization
     void Start()
     {
+
+        equippedWep = "Pistol";
 
         shotStart = this.transform.Find("FirstPersonCharacter/Blaster Pistol/shotStart").gameObject;
         exploder = GameObject.FindGameObjectWithTag("ExploderMaster");
@@ -27,20 +29,50 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Fire();
         }
 
+        if (Input.GetKeyDown("Equip"))
+        {
+            RaycastHit hit;
+
+            if(Physics.Raycast(transform.position, transform.forward, out hit, 10f))
+            {
+                if(hit.transform.name == "Bow")
+                {
+                    Equip("Bow");
+                }
+            }
+        }
 
     }
 
     void Fire()
     {
         //spawn Bullet from prefab
-        var bullet = PhotonNetwork.Instantiate("Tri_bullet", shotStart.transform.position, shotStart.transform.rotation, 0);
+        if(equippedWep == "Pistol")
+        {
+            var bullet = PhotonNetwork.Instantiate("Tri_bullet", shotStart.transform.position, shotStart.transform.rotation, 0);
 
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 200;
+            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 200;
+        }
+
+        if(equippedWep == "Bow")
+        {
+
+            var bullet = PhotonNetwork.Instantiate("Arrow", shotStart.transform.position, shotStart.transform.rotation, 0);
+
+            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 100;
+
+        }
+        
        
+    }
+
+    void Equip(string weapon)
+    {
+
     }
 }
