@@ -13,13 +13,16 @@ public class PlayerManager : MonoBehaviour
     private GameObject bulletPrefab;
     public string equippedWep;
 
+    private float startTime, power;
+
+
     // Use this for initialization
     void Start()
     {
 
         equippedWep = "Pistol";
 
-        shotStart = this.transform.Find("FirstPersonCharacter/Blaster Pistol/shotStart").gameObject;
+        shotStart = this.transform.Find("FirstPersonCharacter/Pistol/shotStart").gameObject;
         exploder = GameObject.FindGameObjectWithTag("ExploderMaster");
         exploderObject = exploder.GetComponent<Exploder.ExploderObject>();
         bulletPrefab = GameObject.Find("Tri_bullet");
@@ -29,12 +32,36 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetMouseButtonDown(0))
+        if(equippedWep == "Bow" && Input.GetButtonDown("Fire1"))
+        {
+
+           startTime = Time.time;
+
+        }
+        if(equippedWep == "Bow" && Input.GetButtonUp("Fire1"))
+        {
+
+            power = Time.time - startTime;
+            if(power * 75 >= 250f)
+            {
+                power = 250f;
+            }
+            else
+            {
+                power = power * 75f;
+            }
+
+            Fire();
+
+            startTime = 0f;
+        }
+
+        if (Input.GetMouseButtonDown(0) && equippedWep != "Bow")
         {
             Fire();
         }
 
-        if (Input.GetKeyDown("Equip"))
+        if (Input.GetButtonDown("Equip"))
         {
             RaycastHit hit;
 
@@ -64,7 +91,9 @@ public class PlayerManager : MonoBehaviour
 
             var bullet = PhotonNetwork.Instantiate("Arrow", shotStart.transform.position, shotStart.transform.rotation, 0);
 
-            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 100;
+
+
+            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * power;
 
         }
         
@@ -73,6 +102,16 @@ public class PlayerManager : MonoBehaviour
 
     void Equip(string weapon)
     {
+        var currentWep = this.transform.Find("FirstPersonCharacter/" + equippedWep).gameObject;
+
+        currentWep.SetActive(false);
+
+
+        equippedWep = weapon;
+        currentWep = this.transform.Find("FirstPersonCharacter/" + equippedWep).gameObject;
+        currentWep.SetActive(true);
+
+        shotStart = this.transform.Find("FirstPersonCharacter/" + weapon + "/shotStart").gameObject;
 
     }
 }
