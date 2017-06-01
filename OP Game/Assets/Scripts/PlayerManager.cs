@@ -32,40 +32,42 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
 
-        if(equippedWep == "Bow" && Input.GetButtonDown("Fire1"))
+        if(equippedWep == "Bow" && Input.GetButtonDown("Fire1"))            //When you PRESS the "Fire1" input, capture the current time
         {
 
            startTime = Time.time;
 
         }
-        if(equippedWep == "Bow" && Input.GetButtonUp("Fire1"))
+        if(equippedWep == "Bow" && Input.GetButtonUp("Fire1"))              //When you RELEASE the "Fire1" input, get the difference in time since you pressed fire, then multiply it by 125 up to a max of 250, which is then used as the force for the arrow.
         {
 
             power = Time.time - startTime;
-            if(power * 75 >= 250f)
+            if(power * 125 >= 250f)
             {
                 power = 250f;
             }
             else
             {
-                power = power * 75f;
+                power = power * 125f;
             }
 
             Fire();
 
-            startTime = 0f;
+            startTime = 0f;                                                 //Reset start time
         }
 
-        if (Input.GetMouseButtonDown(0) && equippedWep != "Bow")
+        if (Input.GetMouseButtonDown(0) && equippedWep != "Bow")            //If you aren't holding a bow, use the standard "Fire" script
         {
-            Fire();
+            Fire();                                 
         }
 
-        if (Input.GetButtonDown("Equip"))
+        //Equip section performs a 10f Raycast to see if an equippable weapon is in front of the player, if so it runs Equip(weaponName)
+
+        if (Input.GetButtonDown("Equip"))           
         {
             RaycastHit hit;
 
-            if(Physics.Raycast(transform.position, transform.forward, out hit, 10f))
+            if(Physics.Raycast(transform.position, transform.forward, out hit, 2f))
             {
                 if(hit.transform.name == "Bow")
                 {
@@ -86,6 +88,8 @@ public class PlayerManager : MonoBehaviour
             bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 200;
         }
 
+
+        //if bow, spawn an arrow, apply force calculated earlier
         if(equippedWep == "Bow")
         {
 
@@ -100,6 +104,8 @@ public class PlayerManager : MonoBehaviour
        
     }
 
+
+    //Equip script checks the current weapon. Then it deactivates it, and gets the weapon the player is trying to equip. Then sets the shotStart gameObject to the shotStart transform attached to the weapon.
     void Equip(string weapon)
     {
         var currentWep = this.transform.Find("FirstPersonCharacter/" + equippedWep).gameObject;
