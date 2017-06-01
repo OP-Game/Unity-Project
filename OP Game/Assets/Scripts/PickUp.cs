@@ -4,8 +4,6 @@ using System.Collections;
 public class PickUp : MonoBehaviour
 {
     public Transform onhand;
-    //Boolean to establish if the item has been picked up already
-    public static bool pickedUp = false;
     //Boolean to establish if the item is within pickup range
     [SerializeField] public static bool inRange = false;
     //The KeyCode for pick up key binding
@@ -28,7 +26,7 @@ public class PickUp : MonoBehaviour
     {
         // If in range and not already in hand, pick up the object if keypress
         // else it will drop the item
-        if (inRange == true && !pickedUp && Input.GetKeyDown(pickUpKey))
+        if (inRange == true && Weapon.inHand == false && Input.GetKeyDown(pickUpKey))
         {
             GetComponent<Rigidbody>().useGravity = false;
             GetComponent<Rigidbody>().isKinematic = true;
@@ -36,17 +34,16 @@ public class PickUp : MonoBehaviour
             this.transform.rotation = onhand.rotation;
             this.transform.parent = GameObject.Find("FPS_Hand").transform;
             this.transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z + 1);
-            pickedUp = true;
             PlayerStats.holdingItem = true;
-            
+            Weapon.inHand = true;
         }
-        else if (pickedUp && Input.GetKeyDown(pickUpKey))
+        else if (Weapon.inHand == true && Input.GetKeyDown(pickUpKey))
         {
             this.transform.parent = null;
             GetComponent<Rigidbody>().useGravity = true;
             GetComponent<Rigidbody>().isKinematic = false;
-            pickedUp = false;
             PlayerStats.holdingItem = false;
+            Weapon.inHand = false;
         }
     }
 }
