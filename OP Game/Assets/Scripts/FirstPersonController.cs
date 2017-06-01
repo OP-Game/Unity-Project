@@ -49,7 +49,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float horizontal = 0f;
         private float vertical = 0f;
         private Vector3 jumpDirection;
-        public bool wtfIsGoingOn;
+        public bool isSprinting;
 
         // Use this for initialization
         private void Start()
@@ -104,7 +104,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
 
-
+            if (Input.GetButtonDown("Sprint"))
+            {
+                isSprinting = true;
+                
+            }
+            if (m_Camera.fieldOfView == 80 && isSprinting)
+            {
+                isSprinting = false;
+            }
 
 
         }

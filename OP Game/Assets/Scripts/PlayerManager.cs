@@ -31,15 +31,25 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(this.GetComponentInChildren<Camera>().fieldOfView >= 79.8f && !this.GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>().isSprinting && !isAiming)
+        {
+            this.GetComponentInChildren<Camera>().fieldOfView = 80f;
+        }
 
         if(equippedWep == "Bow" && Input.GetButtonDown("Fire1"))            //When you PRESS the "Fire1" input, capture the current time
         {
             isAiming = true;
             startTime = Time.time;
-
+            StopCoroutine(aimFOV());
+            StopCoroutine(returnFOV());
+            StartCoroutine(aimFOV());
         }
         if(equippedWep == "Bow" && Input.GetButtonUp("Fire1"))              //When you RELEASE the "Fire1" input, get the difference in time since you pressed fire, then multiply it by 125 up to a max of 250, which is then used as the force for the arrow.
         {
+            isAiming = false;
+            StopCoroutine(aimFOV());
+            StopCoroutine(returnFOV());
+            StartCoroutine(returnFOV());
 
             power = Time.time - startTime;
             if(power * 125 >= 250f)
@@ -56,7 +66,7 @@ public class PlayerManager : MonoBehaviour
             //Reset start time
             startTime = 0f;
 
-            isAiming = false;
+            
         }
 
         if (Input.GetMouseButtonDown(0) && equippedWep != "Bow")            //If you aren't holding a bow, use the standard "Fire" script
@@ -124,4 +134,23 @@ public class PlayerManager : MonoBehaviour
         shotStart = this.transform.Find("FirstPersonCharacter/" + weapon + "/shotStart").gameObject;
 
     }
+
+    IEnumerator aimFOV()
+    {
+        while (isAiming)
+        {
+            this.GetComponentInChildren<Camera>().fieldOfView = Mathf.Lerp(this.GetComponentInChildren<Camera>().fieldOfView, 40f, Time.deltaTime / 1f);
+            yield return null;
+        }
+
+    }
+    IEnumerator returnFOV()
+    {
+        while(!isAiming)
+        {
+            this.GetComponentInChildren<Camera>().fieldOfView = Mathf.Lerp(this.GetComponentInChildren<Camera>().fieldOfView, 80f, Time.deltaTime / .25f);
+            yield return null;
+        }
+    }
+
 }
