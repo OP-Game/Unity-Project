@@ -170,8 +170,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             else
             {
-                m_MoveDir.x = jumpDirection.x * (speed - 10f);
-                m_MoveDir.z = jumpDirection.z * (speed - 10f);
+                m_MoveDir.x = jumpDirection.x;
+                m_MoveDir.z = jumpDirection.z;
                 m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime;
             }
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
