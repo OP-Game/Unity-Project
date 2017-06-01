@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
     private GameObject shotStart;
     private GameObject bulletPrefab;
     public string equippedWep;
-
+    public bool isAiming;
     private float startTime, power;
 
 
@@ -34,8 +34,8 @@ public class PlayerManager : MonoBehaviour
 
         if(equippedWep == "Bow" && Input.GetButtonDown("Fire1"))            //When you PRESS the "Fire1" input, capture the current time
         {
-
-           startTime = Time.time;
+            isAiming = true;
+            startTime = Time.time;
 
         }
         if(equippedWep == "Bow" && Input.GetButtonUp("Fire1"))              //When you RELEASE the "Fire1" input, get the difference in time since you pressed fire, then multiply it by 125 up to a max of 250, which is then used as the force for the arrow.
@@ -53,7 +53,10 @@ public class PlayerManager : MonoBehaviour
 
             Fire();
 
-            startTime = 0f;                                                 //Reset start time
+            //Reset start time
+            startTime = 0f;
+
+            isAiming = false;
         }
 
         if (Input.GetMouseButtonDown(0) && equippedWep != "Bow")            //If you aren't holding a bow, use the standard "Fire" script
@@ -61,7 +64,7 @@ public class PlayerManager : MonoBehaviour
             Fire();                                 
         }
 
-        //Equip section performs a 10f Raycast to see if an equippable weapon is in front of the player, if so it runs Equip(weaponName)
+        //Equip section performs a 2f Raycast to see if an equippable weapon is in front of the player, if so it runs Equip(weaponName)
 
         if (Input.GetButtonDown("Equip"))           
         {
@@ -108,6 +111,7 @@ public class PlayerManager : MonoBehaviour
     //Equip script checks the current weapon. Then it deactivates it, and gets the weapon the player is trying to equip. Then sets the shotStart gameObject to the shotStart transform attached to the weapon.
     void Equip(string weapon)
     {
+
         var currentWep = this.transform.Find("FirstPersonCharacter/" + equippedWep).gameObject;
 
         currentWep.SetActive(false);
