@@ -11,7 +11,7 @@ public class AmmoManagement : MonoBehaviour {
 	void Update () {
         text = GetComponent<Text>();
         text.text = Weapon.magAmmo + " / " + Weapon.ammoRemaining;
-        if (PickUp.pickedUp)
+        if (Weapon.inHand)
             text.enabled = true;
         else
             text.enabled = false;

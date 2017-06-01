@@ -12,8 +12,9 @@ public class Weapon : MonoBehaviour
     // These variable are able to be passed between scripts 
     public static int magAmmo;                  // ammo currently in magazine
     public static int ammoRemaining;            // ammo remaining in inventory
-    public static bool magEmpty;                // magazine empty state
-    public static bool noAmmo;                  // no ammo remaining state
+    public static bool magEmpty = false;                // magazine empty state
+    public static bool noAmmo = false;                  // no ammo remaining state
+    public static bool inHand = false;
 
     public KeyCode reloadKey = KeyCode.R;       // KeyBinding for the reload function
     public KeyCode fire = KeyCode.Mouse0;       // KeyBinding for the fire function
@@ -71,7 +72,7 @@ public class Weapon : MonoBehaviour
     // Fires the weapon if it has ammo in the Magazine and 
     void fireWeapon()
     {
-        if(magEmpty == false && Input.GetKeyDown(fire))
+        if(inHand == true && magEmpty == false && Input.GetKeyDown(fire))
         {
             magAmmo--;
         }
