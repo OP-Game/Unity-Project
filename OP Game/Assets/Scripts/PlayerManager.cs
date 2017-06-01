@@ -36,7 +36,9 @@ public class PlayerManager : MonoBehaviour
             this.GetComponentInChildren<Camera>().fieldOfView = 80f;
         }
 
-        if(equippedWep == "Bow" && Input.GetButtonDown("Fire1"))            //When you PRESS the "Fire1" input, capture the current time
+        //When you PRESS the "Fire1" input, capture the current time
+        //Set aiming to true, starts the FOV coroutin
+        if (equippedWep == "Bow" && Input.GetButtonDown("Fire1"))            
         {
             isAiming = true;
             startTime = Time.time;
@@ -44,7 +46,9 @@ public class PlayerManager : MonoBehaviour
             StopCoroutine(returnFOV());
             StartCoroutine(aimFOV());
         }
-        if(equippedWep == "Bow" && Input.GetButtonUp("Fire1"))              //When you RELEASE the "Fire1" input, get the difference in time since you pressed fire, then multiply it by 125 up to a max of 250, which is then used as the force for the arrow.
+
+        //When you RELEASE the "Fire1" input, get the difference in time since you pressed fire, then multiply it by 125 up to a max of 250, which is then used as the force for the arrow.
+        if (equippedWep == "Bow" && Input.GetButtonUp("Fire1"))              
         {
             isAiming = false;
             StopCoroutine(aimFOV());

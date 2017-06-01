@@ -49,11 +49,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float horizontal = 0f;
         private float vertical = 0f;
         private Vector3 jumpDirection;
-        public bool isSprinting;
+        public bool isSprinting = false;
+        private float currentWalkSpeed, currentRunSpeed;
 
         // Use this for initialization
         private void Start()
         {
+            currentWalkSpeed = m_WalkSpeed;
+            currentRunSpeed = m_RunSpeed;
 
             m_Camera = GetComponentInChildren<Camera>();
 
@@ -99,21 +102,23 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             if (m_Jump)
             {
+                m_WalkSpeed = currentWalkSpeed - 10f;
+                m_RunSpeed = m_WalkSpeed;
                 jumpDirection = m_MoveDir;
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
 
-            if (Input.GetButtonDown("Sprint"))
+            if (GetComponent<PlayerManager>().isAiming == true)
             {
-                isSprinting = true;
-                
+                m_WalkSpeed = currentWalkSpeed - 10f;
+                m_RunSpeed = m_WalkSpeed;
             }
-            if (m_Camera.fieldOfView == 80 && isSprinting)
+            else
             {
-                isSprinting = false;
+                m_WalkSpeed = currentWalkSpeed;
+                m_RunSpeed = currentRunSpeed;
             }
-
 
         }
 
@@ -165,8 +170,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             else
             {
-                m_MoveDir.x = jumpDirection.x;
-                m_MoveDir.z = jumpDirection.z;
+                m_MoveDir.x = jumpDirection.x * (speed - 10f);
+                m_MoveDir.z = jumpDirection.z * (speed - 10f);
                 m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime;
             }
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
