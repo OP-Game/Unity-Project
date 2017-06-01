@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour {
-    [SerializeField] public static bool holdingItem;
     [SerializeField] public int health;
-    public Weapon itemSlot1;
-    public Weapon itemSlot2;
 
 
     //Getter fuction for health, simply returns the current health value when called
@@ -19,14 +16,12 @@ public class PlayerStats : MonoBehaviour {
     {
         return health + modifier.value;
     }
-
-    // Use this for initialization
-    void Start () {
-
-	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (health <= 0)
+        {
+
+        }
 	}
 }

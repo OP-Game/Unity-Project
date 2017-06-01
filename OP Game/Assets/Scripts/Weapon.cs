@@ -5,7 +5,6 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     //These variables are directly set inside of Unity when applied to an asset
-    [SerializeField] public int damage;         // damage modifier
     [SerializeField] public int magSize;        // magazine capacity
     [SerializeField] public int ammoCount;      // inventory ammo minus what is in the magazine
 

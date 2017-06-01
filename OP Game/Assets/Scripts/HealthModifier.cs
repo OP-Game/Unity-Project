@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class HealthModifier : MonoBehaviour
 {
-    public int value;
-    public bool damage;
-    public bool boost;
+    [SerializeField] public int value;
+    [SerializeField] public bool damage = false;
+    [SerializeField] public bool boost = false;
 
     // Use this for initialization
-    void Start()
+    void Update()
     {
         if (damage) value = 0 - value;
         else if (boost) value = 0 + value;
