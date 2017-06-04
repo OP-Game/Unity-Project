@@ -29,10 +29,10 @@ public class PlayerManager : MonoBehaviour
 
         equippedWep = "Pistol";
 
-        shotStart = this.transform.Find("FirstPersonCharacter/Pistol/shotStart").gameObject;
+        //shotStart = this.transform.Find("FirstPersonCharacter/Pistol/shotStart").gameObject;
         exploder = GameObject.FindGameObjectWithTag("ExploderMaster");
         exploderObject = exploder.GetComponent<Exploder.ExploderObject>();
-        bulletPrefab = GameObject.Find("Tri_bullet");
+        //bulletPrefab = GameObject.Find("Tri_bullet");
     }
 
     // Update is called once per frame
@@ -161,10 +161,6 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    void getWeaponStats()
-    {
-
-    }
 
     //Co-routine used to perform an FOV zoom when ADS
     IEnumerator aimFOV()

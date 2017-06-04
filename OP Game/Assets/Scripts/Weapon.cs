@@ -5,18 +5,25 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     //These variables are directly set inside of Unity when applied to an asset
-    [SerializeField] public int magSize;        // magazine capacity
-    [SerializeField] public int ammoCount;      // inventory ammo minus what is in the magazine
+    [SerializeField] public int magSize;                // magazine capacity
+    [SerializeField] public int ammoCount;              // inventory ammo minus what is in the magazine
+    [SerializeField] public float reloadTime;           // time in seconds it takes to reload   
+    [SerializeField] public float shotDelay;            // delay in seconds between consecutive shots
+    [SerializeField] public float fovZoomAmt;           // zoom amount when ADS
+    [SerializeField] public string projectilePrefab;    // string name of the projectile prefab to be fired
+    [SerializeField] public int shotPower;              // force to be applied to the projectile when fired
+    [SerializeField] public int projectileDamage;       // damage (in hearts) to deal per projectile
+    [SerializeField] public float recoilX, recoilY;     // amount to recoil along X (Horizontal) and Y (Vertical)
+
 
     // These variable are able to be passed between scripts 
     public static int magAmmo;                  // ammo currently in magazine
     public static int ammoRemaining;            // ammo remaining in inventory
-    public static bool magEmpty = false;                // magazine empty state
-    public static bool noAmmo = false;                  // no ammo remaining state
-    public static bool inHand = false;
-
-    public KeyCode reloadKey = KeyCode.R;       // KeyBinding for the reload function
-    public KeyCode fire = KeyCode.Mouse0;       // KeyBinding for the fire function
+    public static bool magEmpty = false;        // magazine empty state
+    public static bool noAmmo = false;          // no ammo remaining state
+    public static bool inHand = false;          // is currently equipped weapon              
+    public static bool inBag = false;           // is this weapon in your bag
+    public static GameObject shotStart;         // game object to instantiate the projectilePrefab
 
     //  Function : reload()
     /*
@@ -30,7 +37,7 @@ public class Weapon : MonoBehaviour
      */
     void reload()
     {
-        if (magAmmo < magSize && Input.GetKeyDown(reloadKey))
+        if (magAmmo < magSize && Input.GetButtonDown("Reload"))
         {
             if (noAmmo == false)
             {
@@ -68,13 +75,13 @@ public class Weapon : MonoBehaviour
     }
 
     // Function : fireWeapon()
-    // Fires the weapon if it has ammo in the Magazine and 
+    // 
     void fireWeapon()
     {
-        if(inHand == true && magEmpty == false && Input.GetKeyDown(fire))
-        {
-            magAmmo--;
-        }
+
+        var projectile = PhotonNetwork.Instantiate(projectilePrefab, shotStart.transform.position, shotStart.transform.rotation, 0);
+
+        projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * 200;
     }
 
     // Function : Start()
@@ -84,6 +91,7 @@ public class Weapon : MonoBehaviour
      */
     private void Start()
     {
+        shotStart = this.transform.Find(this.name + "/shotStart").gameObject;
         magAmmo = magSize;
         ammoRemaining = ammoCount - magSize;
     }
@@ -96,7 +104,6 @@ public class Weapon : MonoBehaviour
     {
         checkAmmo();
         checkMag();
-        fireWeapon();
         reload();
     }
 }
