@@ -161,6 +161,11 @@ public class PlayerManager : MonoBehaviour
 
     }
 
+    void getWeaponStats()
+    {
+
+    }
+
     //Co-routine used to perform an FOV zoom when ADS
     IEnumerator aimFOV()
     {
