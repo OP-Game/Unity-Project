@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] public int shotPower;              // force to be applied to the projectile when fired
     [SerializeField] public int projectileDamage;       // damage (in hearts) to deal per projectile
     [SerializeField] public float recoilX, recoilY;     // amount to recoil along X (Horizontal) and Y (Vertical)
-
+    [SerializeField] public Camera mainCam;
 
     // These variable are able to be passed between scripts 
     public static int magAmmo;                  // ammo currently in magazine
@@ -24,17 +24,18 @@ public class Weapon : MonoBehaviour
     public static bool inHand = false;          // is currently equipped weapon              
     public static bool inBag = false;           // is this weapon in your bag
     public static GameObject shotStart;         // game object to instantiate the projectilePrefab
+    private float shotTime = 0f;
 
-    //  Function : reload()
-    /*
-     *  This function is responsible for adding ammo back into the magazine from the inventory.
-     *
-     *  Is conditional on the player actually having ammo for this weapon.
-     *  
-     *  If they do the function iterates through adding ammo to the magazine, and subtracting it
-     *  from the inventory, if they run out of inventory ammo before finishing the reload, the function
-     *  terminates
-     */
+    /*  
+        Function : reload()
+        This function is responsible for adding ammo back into the magazine from the inventory.
+     
+        Is conditional on the player actually having ammo for this weapon.
+       
+        If they do the function iterates through adding ammo to the magazine, and subtracting it
+        from the inventory, if they run out of inventory ammo before finishing the reload, the function
+        terminates
+    */
     void reload()
     {
         if (magAmmo < magSize && Input.GetButtonDown("Reload"))
@@ -55,8 +56,8 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    // Function : checkAmmo()
     /*
+     * Function : checkAmmo()
      * This function checks to see if the player has any remaining ammo
      * if they do not it returns true, else returns false
      */
@@ -76,12 +77,15 @@ public class Weapon : MonoBehaviour
 
     // Function : fireWeapon()
     // 
-    void fireWeapon()
+    public void fireWeapon()
     {
+        if (Time.time >= shotTime + shotDelay)
+        {
+            var projectile = PhotonNetwork.Instantiate(projectilePrefab, shotStart.transform.position, shotStart.transform.rotation, 0);
+            projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * shotPower;
+            shotTime = Time.time;
+        }
 
-        var projectile = PhotonNetwork.Instantiate(projectilePrefab, shotStart.transform.position, shotStart.transform.rotation, 0);
-
-        projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * 200;
     }
 
     // Function : Start()
@@ -91,7 +95,7 @@ public class Weapon : MonoBehaviour
      */
     private void Start()
     {
-        shotStart = this.transform.Find(this.name + "/shotStart").gameObject;
+        shotStart = this.transform.Find("shotStart").gameObject;
         magAmmo = magSize;
         ammoRemaining = ammoCount - magSize;
     }
@@ -99,11 +103,12 @@ public class Weapon : MonoBehaviour
     // Function : Update()
     /*
      * This function is responsible for updating and processing once per frame
-     */
+    */
     private void Update()
     {
         checkAmmo();
         checkMag();
         reload();
     }
+
 }

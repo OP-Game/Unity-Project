@@ -88,9 +88,16 @@ public class PlayerManager : MonoBehaviour
             
         }
 
+        /*
         if (Input.GetMouseButtonDown(0) && equippedWep != "Bow")            //If you aren't holding a bow, use the standard "Fire" script
         {
             Fire();                                 
+        }
+        */
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            this.gameObject.GetComponentInChildren<Weapon>().fireWeapon();
         }
 
         //Equip section performs a 2f Raycast to see if an equippable weapon is in front of the player, if so it runs Equip(weaponName)

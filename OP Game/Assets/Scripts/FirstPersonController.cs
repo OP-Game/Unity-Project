@@ -18,7 +18,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private float m_JumpSpeed;
         [SerializeField] private float m_StickToGroundForce;
         [SerializeField] private float m_GravityMultiplier;
-        [SerializeField] private MouseLook m_MouseLook;
+        [SerializeField] public MouseLook m_MouseLook;
         [SerializeField] private bool m_UseFovKick;
         [SerializeField] private FOVKick m_FovKick = new FOVKick();
         [SerializeField] private bool m_UseHeadBob;
@@ -80,7 +80,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         public void Update()
         {
+            
             RotateView();
+                
             // the jump state needs to read here to make sure it is not missed
             if (m_CharacterController.isGrounded && !m_Jump)
             {
@@ -178,7 +180,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
 
             ProgressStepCycle(speed);
-            UpdateCameraPosition(speed);
+           // UpdateCameraPosition(speed);
 
             m_MouseLook.UpdateCursorLock();
         }
@@ -226,7 +228,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_FootstepSounds[0] = m_AudioSource.clip;
         }
 
-
+        /*
         private void UpdateCameraPosition(float speed)
         {
             Vector3 newCameraPosition;
@@ -249,7 +251,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             m_Camera.transform.localPosition = newCameraPosition;
         }
-
+        */
 
         private void GetInput(out float speed)
         {
@@ -311,7 +313,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             body.AddForceAtPosition(m_CharacterController.velocity * 0.1f, hit.point, ForceMode.Impulse);
         }
+
     }
+
 }
 
 
