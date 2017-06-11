@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class Weapon : MonoBehaviour
 {
@@ -22,8 +23,9 @@ public class Weapon : MonoBehaviour
     public static bool magEmpty = false;        // magazine empty state
     public static bool noAmmo = false;          // no ammo remaining state
     public static bool inHand = false;          // is currently equipped weapon              
-    public static bool inBag = false;           // is this weapon in your bag
-    public static GameObject shotStart;         // game object to instantiate the projectilePrefab
+    public static bool inBag = false;            // is this weapon in your bag
+    
+    private GameObject shotStart;               // game object to instantiate the projectilePrefab
     private float shotTime = 0f;
 
     /*  
@@ -76,7 +78,10 @@ public class Weapon : MonoBehaviour
     }
 
     // Function : fireWeapon()
-    // 
+    // If the current time is greater than or equal to that previous shot timestamp plus the shotDelay
+    // Instantiate a network prefab of the projectile at the shotStart game object
+    // Add force equal to the shotPower 
+    // Timestamp this shot
     public void fireWeapon()
     {
         if (Time.time >= shotTime + shotDelay)
@@ -84,8 +89,8 @@ public class Weapon : MonoBehaviour
             var projectile = PhotonNetwork.Instantiate(projectilePrefab, shotStart.transform.position, shotStart.transform.rotation, 0);
             projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * shotPower;
             shotTime = Time.time;
+            GetComponentInParent<CameraManager>().StartRecoil(20f, 50f, 10f, 2f);
         }
-
     }
 
     // Function : Start()
@@ -95,7 +100,7 @@ public class Weapon : MonoBehaviour
      */
     private void Start()
     {
-        shotStart = this.transform.Find("shotStart").gameObject;
+        shotStart = transform.Find("shotStart").gameObject;
         magAmmo = magSize;
         ammoRemaining = ammoCount - magSize;
     }

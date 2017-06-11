@@ -97,7 +97,7 @@ public class PlayerManager : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            this.gameObject.GetComponentInChildren<Weapon>().fireWeapon();
+            gameObject.GetComponentInChildren<Weapon>().fireWeapon();
         }
 
         //Equip section performs a 2f Raycast to see if an equippable weapon is in front of the player, if so it runs Equip(weaponName)
