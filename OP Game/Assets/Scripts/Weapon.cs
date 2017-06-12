@@ -89,7 +89,6 @@ public class Weapon : MonoBehaviour
             var projectile = PhotonNetwork.Instantiate(projectilePrefab, shotStart.transform.position, shotStart.transform.rotation, 0);
             projectile.GetComponent<Rigidbody>().velocity = projectile.transform.forward * shotPower;
             shotTime = Time.time;
-            GetComponentInParent<CameraManager>().StartRecoil(20f, 50f, 10f, 2f);
         }
     }
 
