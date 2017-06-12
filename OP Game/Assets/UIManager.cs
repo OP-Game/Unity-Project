@@ -8,9 +8,12 @@ public class UIManager : MonoBehaviour {
     private GameObject menu;
     
 
-    void QuitApplication()
+    public void QuitApplication()
     {
-        if (isShowing == true) Application.Quit();
+        if (isShowing == true) {
+            print("QUIT THE FUCKING GAME");
+            Application.Quit();
+        }
     }
 
     private void Start()

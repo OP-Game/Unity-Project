@@ -80,6 +80,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         // Update is called once per frame
         public void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                m_MouseLook.lockCursor = !m_MouseLook.lockCursor;
+            }
             RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (m_CharacterController.isGrounded && !m_Jump)
