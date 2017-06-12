@@ -6,6 +6,7 @@ using UnityEngine;
 public class UIManager : MonoBehaviour {
     private bool isShowing = false;
     private GameObject menu;
+    
 
     void QuitApplication()
     {
@@ -24,6 +25,7 @@ public class UIManager : MonoBehaviour {
         {
             isShowing = !isShowing;
         }
+
     }
 
 }
