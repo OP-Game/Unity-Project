@@ -25,21 +25,9 @@ Platform assembly: D:\OPGame\Unity_Project\OP Game\poop_Data\Managed\P2T.dll (th
 Loading D:\OPGame\Unity_Project\OP Game\poop_Data\Managed\P2T.dll into Unity Child Domain
 Platform assembly: D:\OPGame\Unity_Project\OP Game\poop_Data\Managed\Photon3Unity3D.dll (this message is harmless)
 Loading D:\OPGame\Unity_Project\OP Game\poop_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
-- Completed reload, in  0.340 seconds
+- Completed reload, in  0.093 seconds
 Platform assembly: D:\OPGame\Unity_Project\OP Game\poop_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\OPGame\Unity_Project\OP Game\poop_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 4071x2160 at -231,-1080
 <RI> Initializing input.
 <RI> Input initialized.
-<RI> Initialized touch support.
-UnloadTime: 1.739466 ms
-Exploder: using 3 threads.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Platform assembly: D:\OPGame\Unity_Project\OP Game\poop_Data\Managed\System.Configuration.dll (this message is harmless)
-Platform assembly: D:\OPGame\Unity_Project\OP Game\poop_Data\Managed\System.Xml.dll (this message is harmless)
-Setting up 3 worker threads for Enlighten.
-  Thread -> id: 2eac -> priority: 1 
-  Thread -> id: 2e70 -> priority: 1 
-  Thread -> id: 1950 -> priority: 1 

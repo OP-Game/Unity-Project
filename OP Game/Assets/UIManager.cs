@@ -7,9 +7,9 @@ public class UIManager : MonoBehaviour {
     private bool isShowing = false;
     private GameObject menu;
 
-    public void QuitApplication()
+    void QuitApplication()
     {
-        Application.Quit();
+        if (isShowing == true) Application.Quit();
     }
 
     private void Start()
