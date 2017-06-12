@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 90d7e1533c536234cb8d149b005775f0
+timeCreated: 1496702992
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: POLYA Regular
+  fontNames:
+  - POLYA Regular
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -2,19 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class UIManager : MonoBehaviour {
+    private bool isShowing = false;
+    private GameObject menu;
 
-	// Use this for initialization
-	void Start () {
-		
+    public void QuitApplication()
+    {
+        Application.Quit();
+    }
 
+    private void Start()
+    {
+        menu = GameObject.Find("/UI/menu");
+    }
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    private void Update()
+    {
+        menu.SetActive(isShowing);
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            isShowing = !isShowing;
+        }
+    }
 
-
-		
-	}
 }
