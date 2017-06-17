@@ -102,22 +102,34 @@ public class PlayerCharacter : Photon.MonoBehaviour {
                 currentSpeedZ = speedZ;
 
             }
+
+            moveDirection = myTransform.TransformDirection(moveDirection);
+
             if (Input.GetButtonDown("Jump"))
             {
                 speedY = jumpSpeed;
                 jumpDirection = moveDirection;
             }
 
+            
 
         }
 
         else
         {
             speedX = Mathf.SmoothDamp(currentSpeedX, 1, ref refVelocity, 3f);
-            speedZ = Mathf.SmoothDamp(currentSpeedZ, 1, ref refVelocity, 3f);
+            speedZ = Mathf.SmoothDamp(currentSpeedZ, 3f, ref refVelocity, 3f);
 
-            moveDirection.z = inputZ * speedZ;
-            moveDirection.x = inputX * speedX;
+            if (inputZ > 0)
+            {
+                moveDirection.z = jumpDirection.z + speedZ;
+            }
+            else
+            {
+                moveDirection.z = jumpDirection.z;
+            }
+
+            moveDirection = myTransform.TransformDirection(jumpDirection);
 
             currentSpeedX = speedX;
             currentSpeedZ = speedZ;
@@ -125,9 +137,9 @@ public class PlayerCharacter : Photon.MonoBehaviour {
             speedY -= gravity * Time.deltaTime;
         }
 
-        moveDirection = myTransform.TransformDirection(moveDirection);
         moveDirection.y = speedY - .75f;
         myController.Move(moveDirection * Time.deltaTime);
+
     }
 
   
