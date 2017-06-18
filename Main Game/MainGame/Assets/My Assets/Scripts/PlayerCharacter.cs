@@ -120,13 +120,13 @@ public class PlayerCharacter : Photon.MonoBehaviour {
             //speedX = Mathf.SmoothDamp(currentSpeedX, 1, ref refVelocity, 3f);
             //speedZ = Mathf.SmoothDamp(currentSpeedZ, 3f, ref refVelocity, 3f);
 
-            moveDirection.z = jumpDirection.z;
-            moveDirection.x = jumpDirection.x;
+            if(inputZ != 0)
+            {
+                moveDirection.z = inputZ * 5f;
+                moveDirection = myTransform.TransformDirection(moveDirection);
+            }
 
-            moveDirection.z = moveDirection.z + (inputZ * 3);
-            moveDirection.x = moveDirection.x + (inputX * 3);
-
-            moveDirection = myTransform.TransformDirection(moveDirection);
+            
 
             //currentSpeedX = speedX;
             //currentSpeedZ = speedZ;
