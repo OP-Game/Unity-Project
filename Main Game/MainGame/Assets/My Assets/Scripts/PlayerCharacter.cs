@@ -76,7 +76,9 @@ public class PlayerCharacter : Photon.MonoBehaviour {
             myTransform = this.transform;
 
             canControl = true;
+            myCamera.gameObject.SetActive(true);
             myCamera.enabled = true;
+            myPlayer = myTransform.Find("PlayerCharacterModel").gameObject;
             myPlayer.SetActive(true);
             myRigidbody.freezeRotation = true;
             myRigidbody.useGravity = true;
