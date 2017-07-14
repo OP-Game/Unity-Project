@@ -6,7 +6,7 @@ public class NetworkManager : MonoBehaviour
 {
 
     const string VERSION = "v0.0.1";
-    public string roomName = "MainGame";
+    public string roomName = "MainTestScene";
 
     public string playerPrefabString = "Player Character";
     public GameObject spawnLocation;
