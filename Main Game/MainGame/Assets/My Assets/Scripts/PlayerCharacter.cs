@@ -12,6 +12,7 @@ public class PlayerCharacter : Photon.MonoBehaviour {
     private Vector3 position;                           //the position moving to, used for movement lerping via network
     private Quaternion rotation;                        //target rotation, for rotation lerping via network
     bool isAlive = true;                                //checks to see if this player is active in the network
+    private GameObject myPlayer;
     #endregion
 
     #region Character Control Variables
@@ -76,6 +77,7 @@ public class PlayerCharacter : Photon.MonoBehaviour {
 
             canControl = true;
             myCamera.enabled = true;
+            myPlayer.SetActive(true);
             myRigidbody.freezeRotation = true;
             myRigidbody.useGravity = true;
 
@@ -311,7 +313,7 @@ public class PlayerCharacter : Photon.MonoBehaviour {
             // Perform a raycast in the direction of the camera, and if we hit set grappling to true
             // Calls Grappling() and passes the world position that was hit 
             RaycastHit hit;
-            if (Physics.Raycast(myTransform.position, myCamera.transform.forward, out hit))
+            if (Physics.Raycast(myCamera.transform.position, myCamera.transform.forward, out hit))
             {
                 if (hit.transform.tag != "WorldBounds")
                 {
@@ -323,7 +325,7 @@ public class PlayerCharacter : Photon.MonoBehaviour {
         if (wepName == "Nade Launcher")
         {
             RaycastHit hit;
-            if(Physics.Raycast(myTransform.position, myCamera.transform.forward, out hit))
+            if(Physics.Raycast(myCamera.transform.position, myCamera.transform.forward, out hit))
             {
                 print(hit.transform.gameObject.name);
                 var shotDir = hit.point - shotStart.position;
