@@ -31,7 +31,14 @@ public class NadeScript : MonoBehaviour {
             Rigidbody rb = hit.GetComponent<Rigidbody>();
 
             if (rb != null)
+            {
+                if(hit.gameObject.tag == "Player")
+                {
+
+                }
                 rb.AddExplosionForce(1000f, explosionPos, 10f, 3.0F);
+
+            }
         }
 
         Destroy(gameObject);

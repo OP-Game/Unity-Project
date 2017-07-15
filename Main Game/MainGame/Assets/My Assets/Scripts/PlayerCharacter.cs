@@ -49,7 +49,7 @@ public class PlayerCharacter : Photon.MonoBehaviour {
     bool canRunSidestep = true;
     bool canJump = true;
     bool canRun = true;
-    bool canControl = false;
+    public bool canControl = false;
 
     private Transform myTransform;          // The transform of this game object
     private Transform shotStart;            // Transform of the start location for a fired projectile
@@ -246,7 +246,7 @@ public class PlayerCharacter : Photon.MonoBehaviour {
                 else
                 {
                     
-                    // We are standing over a dinamic object,
+                    // We are standing over a dynamic object,
                     // set the groundVelocity to Zero to avoid jiggers and extreme accelerations
                     groundVelocity = Vector3.zero;
                 }
