@@ -54,7 +54,7 @@ public class PlayerCharacter : Photon.MonoBehaviour {
     private Transform myTransform;          // The transform of this game object
     private Transform shotStart;            // Transform of the start location for a fired projectile
 
-    private Rigidbody myRigidbody;          // The rigidbody of this character, used for enabling physics
+    public Rigidbody myRigidbody;          // The rigidbody of this character, used for enabling physics
 
     private GameObject nadeLauncher, grappleBow;        // gameObjects for each weapon
 
@@ -70,7 +70,7 @@ public class PlayerCharacter : Photon.MonoBehaviour {
         if (photonView.isMine)
         {
             // enable my camera, get my Character Controller, and get my transform
-            myRigidbody = this.GetComponent<Rigidbody>();
+            myRigidbody.isKinematic = false;
 
             myTransform = this.transform;
 
