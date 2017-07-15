@@ -337,6 +337,20 @@ public class PlayerCharacter : Photon.MonoBehaviour {
         }
     }
 
+    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(transform.position);
+            stream.SendNext(transform.rotation);
+        }
+        else
+        {
+            position = (Vector3)stream.ReceiveNext();
+            rotation = (Quaternion)stream.ReceiveNext();
+        }
+    }
+
     IEnumerator Alive()
         {
             while (isAlive)
