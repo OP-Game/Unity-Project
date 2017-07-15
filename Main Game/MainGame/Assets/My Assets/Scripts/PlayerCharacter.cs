@@ -13,6 +13,7 @@ public class PlayerCharacter : Photon.MonoBehaviour {
     private Quaternion rotation;                        //target rotation, for rotation lerping via network
     bool isAlive = true;                                //checks to see if this player is active in the network
     private GameObject myPlayer;
+    public CameraController cameraControls;
     #endregion
 
     #region Character Control Variables
@@ -75,6 +76,7 @@ public class PlayerCharacter : Photon.MonoBehaviour {
 
             canControl = true;
             myCamera.enabled = true;
+            cameraControls.enabled = true;
 
             myRigidbody.freezeRotation = true;
             myRigidbody.useGravity = true;
