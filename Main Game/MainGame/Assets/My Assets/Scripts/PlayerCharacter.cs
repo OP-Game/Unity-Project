@@ -70,8 +70,6 @@ public class PlayerCharacter : Photon.MonoBehaviour {
         {
             // enable my camera, get my Character Controller, and get my transform
             myRigidbody = this.GetComponent<Rigidbody>();
-            capsule.enabled = true;
-            
 
             myTransform = this.transform;
 
