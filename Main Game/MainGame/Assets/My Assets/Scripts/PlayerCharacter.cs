@@ -24,7 +24,7 @@ public class PlayerCharacter : Photon.MonoBehaviour {
     bool isGrappling = false;           // Bool for testing if we are grappling
 
     private Vector3 groundVelocity = Vector3.zero;
-    private CapsuleCollider capsule;
+    public CapsuleCollider capsule;
     private Vector3 inputVector = Vector3.zero;
     
     
@@ -70,7 +70,7 @@ public class PlayerCharacter : Photon.MonoBehaviour {
         {
             // enable my camera, get my Character Controller, and get my transform
             myRigidbody = this.GetComponent<Rigidbody>();
-            capsule = this.GetComponent<CapsuleCollider>();
+            capsule.enabled = true;
             
 
             myTransform = this.transform;
