@@ -25,13 +25,13 @@ public class NadeScript : MonoBehaviour {
     void Explode()
     {
         Vector3 explosionPos = transform.position;
-        Collider[] colliders = Physics.OverlapSphere(explosionPos, 3.5f);
+        Collider[] colliders = Physics.OverlapSphere(explosionPos, 10f);
         foreach (Collider hit in colliders)
         {
             Rigidbody rb = hit.GetComponent<Rigidbody>();
 
             if (rb != null)
-                rb.AddExplosionForce(200f, explosionPos, 3.5f, 3.0F);
+                rb.AddExplosionForce(1000f, explosionPos, 10f, 3.0F);
         }
 
         Destroy(gameObject);
